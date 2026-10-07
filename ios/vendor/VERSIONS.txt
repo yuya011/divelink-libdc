@@ -1,0 +1,2 @@
+libdc-swift e425b68a049f22452f85486f096907d0478459e6
+libdivecomputer (deepsealabs fork) 3cd4cfd5c82001c768cf12342d489398a0fc04c2

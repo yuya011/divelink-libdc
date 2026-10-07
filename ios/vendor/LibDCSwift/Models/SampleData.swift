@@ -1,0 +1,90 @@
+import Foundation
+import Clibdivecomputer
+import LibDCBridge
+
+public struct SampleData {
+    // Basic dive data
+    var time: TimeInterval = 0          // Time in seconds
+    var depth: Double = 0               // Depth in meters
+    var temperature: Double?            // Temperature in Celsius
+    var divetime: TimeInterval = 0      // Total dive time
+    var maxDepth: Double = 0           // Maximum depth reached
+    var avgDepth: Double = 0           // Average depth
+    var lastTemperature: Double = 0    // Last recorded temperature
+    var maxTime: TimeInterval = 0  // Track the maximum time
+    
+    // Temperature tracking
+    var tempSurface: Double = 0        // Surface temperature
+    var tempMinimum: Double = Double.infinity  // Minimum temperature
+    var tempMaximum: Double = -Double.infinity // Maximum temperature
+    
+    // Tank pressure data
+    var pressure: [(tank: Int, value: Double)] = []  // Tank pressure readings
+
+    // Live pressure per tank index. libdivecomputer fires DC_SAMPLE_PRESSURE once
+    // per transmitter, so one sample can carry readings for several tanks; keeping
+    // a single value dropped every tank but the last (deepsealabs/libdc-swift#41).
+    var currentTankPressures: [Int: Double] = [:]
+
+    // Lowest-index tank's live pressure, for the single-value convenience field.
+    var primaryTankPressure: Double? {
+        currentTankPressures.min(by: { $0.key < $1.key })?.value
+    }
+
+    mutating func recordTankPressure(tank: Int, value: Double) {
+        currentTankPressures[tank] = value
+        pressure.append((tank: tank, value: value))
+    }
+    
+    // Profile data
+    var profile: [DiveProfilePoint] = []  // Detailed dive profile
+    
+    // Gas mix data
+    var gasmix: Int?                    // Current gas mix index
+    var gasMixes: [GasMix] = []         // All gas mixes used
+    
+    // Environmental data
+    var atmospheric: Double = 1.0       // Atmospheric pressure
+    var salinity: Double?              // Water salinity
+    
+    // Tank information
+    var tanks: [DiveData.Tank] = []    // Tank information
+    
+    // Dive mode and model
+    var diveMode: DiveData.DiveMode = .openCircuit
+    var decoModel: DiveData.DecoModel? // Decompression model
+    
+    // Location data
+    var location: DiveData.Location?    // GPS location if available
+    
+    // Additional sensor data
+    var rbt: UInt32?                    // Remaining bottom time
+    var heartbeat: UInt32?              // Heart rate
+    var bearing: UInt32?                // Compass bearing
+    
+    // Rebreather data
+    var setpoint: Double?               // Setpoint value
+    var ppo2: [(sensor: UInt32, value: Double)] = []  // PPO2 readings
+    var cns: Double?                    // CNS percentage
+    
+    // Last DC_SAMPLE_DECO the computer reported, kept for the dive-level summary.
+    var deco: DecoData?
+
+    // Per-sample state: cleared when a new sample time starts so a value is only
+    // attributed to the sample the computer reported it in.
+    var sampleDeco: DecoData?
+    var events: [DiveEvent] = []
+    var rawEvents: [RawDiveEvent] = []
+
+    // Vendor-specific samples (DC_SAMPLE_VENDOR): (time, vendor type, raw bytes)
+    var vendorSamples: [DiveData.VendorSample] = []
+
+    public typealias Event = RawDiveEvent
+
+    public struct DecoData {
+        var type: dc_deco_type_t        // Type of deco stop
+        var depth: Double               // Stop depth in meters
+        var time: UInt32                // Stop time in seconds
+        var tts: UInt32                 // Time to surface
+    }
+} 
