@@ -31,8 +31,9 @@ All changes to the bundled sources are listed here (LGPL-2.1 §2(a)).
 - The DiveLink iOS app shows these libraries, their licenses, and how to obtain the source
   (Settings > Support > データ提供元・ライセンス > オープンソースソフトウェア).
 - The complete source of the libraries as used (this directory, including the modifications above) is
-  provided on request through https://lp.divelink.jp/contact, for at least three years after the last
-  distribution of the app, for no more than the cost of providing it (LGPL-2.1 §6(c)).
+  published at https://github.com/yuya011/divelink-libdc, and is also provided on request through
+  https://lp.divelink.jp/contact for at least three years after the last distribution of the app, for no more
+  than the cost of providing it (LGPL-2.1 §6(c)).
 - Because iOS apps link these libraries statically, DiveLink will also provide, on the same terms, the
   object files of the app needed to relink it with a modified version of the libraries (LGPL-2.1 §6(a)/(c)).
 - The App Store standard EULA states that open-source components are governed by their own license terms,
