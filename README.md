@@ -32,12 +32,16 @@ Place this directory at `modules/divelink-libdc/` in an Expo app. Expo autolinki
 ## 再リンクのための資料 / Relinking
 
 DiveLink の iOS アプリはこれらのライブラリを静的に組み込んでいます。
-改変したライブラリと DiveLink を再リンクするために必要な資料（アプリのオブジェクトファイル等）は、
-[お問い合わせ](https://lp.divelink.jp/contact)からご依頼ください。アプリを最後に配布した日から少なくとも3年間、送付に要する実費のみでお渡しします。
+改変したライブラリと DiveLink を再リンクするために必要な資料（アプリのオブジェクトファイル、リンクの手順など）は、
+アプリの版ごとに [Releases](https://github.com/yuya011/divelink-libdc/releases) で公開しています（iOS 1.0.4 から）。
+それ以前の版や、Releases に無いものは、[お問い合わせ](https://lp.divelink.jp/contact)からご依頼ください。
+アプリを最後に配布した日から少なくとも3年間、送付に要する実費のみでお渡しします。
 
-The DiveLink iOS app links these libraries statically. To relink DiveLink with a modified version of the libraries,
-request the necessary materials (such as the app's object files) via https://lp.divelink.jp/contact. We provide them
-for at least three years after the last distribution of the app, for no more than the cost of providing them.
+The DiveLink iOS app links these libraries statically. The materials needed to relink DiveLink with a modified version
+of the libraries (the app's object files, the link command, and so on) are published for each app version in
+[Releases](https://github.com/yuya011/divelink-libdc/releases), starting with iOS 1.0.4. For earlier versions or anything
+not in Releases, contact us via https://lp.divelink.jp/contact. We provide them for at least three years after the last
+distribution of the app, for no more than the cost of providing them.
 
 ## ライセンス / License
 
